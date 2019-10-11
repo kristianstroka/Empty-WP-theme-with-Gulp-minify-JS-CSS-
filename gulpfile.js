@@ -42,7 +42,6 @@ var cleancss		= require('gulp-clean-css');
 var uglify			= require('gulp-uglify');
 var combiner		= require('stream-combiner2');
 var watch			= require('gulp-watch');
-var gutil			= require('gulp-util');
 var prettyHrtime	= require('pretty-hrtime');
 var node_path		= require('path');
 var concat			= require('gulp-concat');
@@ -309,7 +308,7 @@ function less_function(files) {
 	}
 
 	var start = process.hrtime();
-	gutil.log('Starting \'\x1b[36mless\x1b[0m\' - ' + get_rel_path(files));
+	console.log('Starting \'\x1b[36mless\x1b[0m\' - ' + get_rel_path(files));
 
 	var combined = combiner.obj([
 		gulp.src(files),
@@ -340,7 +339,7 @@ function sass_function(files) {
 	}
 
 	var start = process.hrtime();
-	gutil.log('Starting \'\x1b[36msass\x1b[0m\' - ' + get_rel_path(files));
+	console.log('Starting \'\x1b[36msass\x1b[0m\' - ' + get_rel_path(files));
 
 	var combined = combiner.obj([
 		gulp.src(files),
@@ -371,7 +370,7 @@ function compressjs_function(files) {
 	}
 
 	var start = process.hrtime();
-	gutil.log('Starting \'\x1b[36mcompressjs\x1b[0m\' - ' + get_rel_path(files));
+	console.log('Starting \'\x1b[36mcompressjs\x1b[0m\' - ' + get_rel_path(files));
 
 	var combined = combiner.obj([
 		gulp.src(files),
@@ -395,7 +394,7 @@ function pack_css(hide_output) {
 
 	if (!hide_output) {
 		var start = process.hrtime();
-		gutil.log('Starting \'\x1b[36mpack-css\x1b[0m\'');
+		consolt.log('Starting \'\x1b[36mpack-css\x1b[0m\'');
 	}
 	
 	var assetsDir = '';
@@ -432,7 +431,7 @@ function pack_js(hide_output) {
 
 	if (!hide_output) {
 		var start = process.hrtime();
-		gutil.log('Starting \'\x1b[36mpack-js\x1b[0m\'');
+		console.log('Starting \'\x1b[36mpack-js\x1b[0m\'');
 	}
 	
 	var assetsDir = '';
@@ -586,7 +585,7 @@ function walk(dir) {
 
 function log(message) {
 	return function() {
-		gutil.log(message + "\n");
+		console.log(message + "\n");
 	};
 }
 

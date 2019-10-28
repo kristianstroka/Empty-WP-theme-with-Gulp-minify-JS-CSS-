@@ -1,0 +1,10 @@
+version: '3.5'
+
+services:
+  gulp:
+    container_name: gulp-minify
+    build: .
+    command: gulp
+    volumes:
+      - .:/app/
+      - /app/node_modules

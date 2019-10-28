@@ -52,39 +52,39 @@ var sass 			= require('gulp-sass');
 
 // default gulp task
 gulp.task('default', function(done){
-	var question = [{
-		type : 'list',
-		name : 'task',
-		message : 'Select task',
-		choices: [
-				{ name: 'Watch less/scss/js',				value: 'watch' },
-				{ name: 'Watch less/scss/js and deploy', 	value: 'watch_ftp' },
-				{ name: 'Upload to remote server',			value: 'upload' },
-				{ name: 'Download from remote server',		value: 'download' },
-				{ name: 'Start git webui',					value: 'webui' },
-				{ name: 'Exit', 							value: 'exit' },
-			],
-		default: 'watch'
-	}];
+	// var question = [{
+	// 	type : 'list',
+	// 	name : 'task',
+	// 	message : 'Select task',
+	// 	choices: [
+	// 			{ name: 'Watch less/scss/js',				value: 'watch' },
+	// 			{ name: 'Watch less/scss/js and deploy', 	value: 'watch_ftp' },
+	// 			{ name: 'Upload to remote server',			value: 'upload' },
+	// 			{ name: 'Download from remote server',		value: 'download' },
+	// 			{ name: 'Start git webui',					value: 'webui' },
+	// 			{ name: 'Exit', 							value: 'exit' },
+	// 		],
+	// 	default: 'watch'
+	// }];
 	
-	inquirer.prompt(question).then(function(answer) {
-		done();
-		selected.task = answer.task.toString().trim();
+	// inquirer.prompt(question).then(function(answer) {
+	// 	done();
+		// selected.task = answer.task.toString().trim();
 		
-		switch (selected.task) {
-			case 'exit':
-				process.exit(2);
-				break;
-			case 'watch':
-			case 'webui':
+		// switch (selected.task) {
+		// 	case 'exit':
+		// 		process.exit(2);
+		// 		break;
+		// 	case 'watch':
+		// 	case 'webui':
 				get_paths();
-				break;
-			case 'watch_ftp':
-			case 'upload':
-			case 'download':
-				get_paths(true);
-				break;
-		}
+		// 		break;
+		// 	case 'watch_ftp':
+		// 	case 'upload':
+		// 	case 'download':
+		// 		get_paths(true);
+		// 		break;
+		// }
 		
 		/**
 		 * If is necessary to call function
@@ -96,32 +96,32 @@ gulp.task('default', function(done){
 		 */
 		
 		//process.exit(2);
-	});
+	// });
 });
 
 function get_paths(more) {
-	var is_wp = false;
-	var paths = [];
+	// var is_wp = false;
+	// var paths = [];
 	
-	// check, if wp-content directory exists (is wordpress site)
-	if (fs.existsSync(get_full_path('wp-content'))){
-    	[
-    		'./wp-content/themes/',
-    		'./wp-content/plugins/'
-    	]
-    	.forEach(function(subdir){
-    		// get subdirs of themes a plugins dirs
-    	 	paths = paths.concat(walk(subdir));
-    	});
-    	is_wp = true;
-	} else {
+	// // check, if wp-content directory exists (is wordpress site)
+	// if (fs.existsSync(get_full_path('wp-content'))){
+    // 	[
+    // 		'./wp-content/themes/',
+    // 		'./wp-content/plugins/'
+    // 	]
+    // 	.forEach(function(subdir){
+    // 		// get subdirs of themes a plugins dirs
+    // 	 	paths = paths.concat(walk(subdir));
+    // 	});
+    // 	is_wp = true;
+	// } else {
 		// use only root dir
 		selected.path = get_full_path('./');
 		
 		// skip directory chosing
 		start_task();
 		return;
-	}
+	// }
 	
 	var choices = [];
 	
@@ -162,24 +162,24 @@ function get_paths(more) {
 }
 
 function start_task() {
-	switch (selected.task) {
-		case 'watch':
+	// switch (selected.task) {
+	// 	case 'watch':
 			watch_js_css();
-			break;
-		case 'watch_ftp':
-			watch_js_css();
-			start_watch_ftp();
-			break;
-		case 'upload':
-			upload();
-			break;
-		case 'download':
-			download();
-			break;
-		case 'webui':
-			start_webui();
-			break;
-	}
+	// 		break;
+	// 	case 'watch_ftp':
+	// 		watch_js_css();
+	// 		start_watch_ftp();
+	// 		break;
+	// 	case 'upload':
+	// 		upload();
+	// 		break;
+	// 	case 'download':
+	// 		download();
+	// 		break;
+	// 	case 'webui':
+	// 		start_webui();
+	// 		break;
+	// }
 }
 
 function start_watch_ftp() {
@@ -285,7 +285,7 @@ function watch_js_css() {
 		}
 	});
 
-	watch([selected.path + '/**/js/**/*', '!' + selected.path + '/.c9/**/js/**/*'], function(datos) {
+	gulp.watch([selected.path + '/**/js/**/*', '!' + selected.path + '/.c9/**/js/**/*'], function(datos) {
 		for (var i = 0; i < datos.history.length; i++) {
 			(function(i) {
 				var parse = node_path.parse(datos.history[i]);
